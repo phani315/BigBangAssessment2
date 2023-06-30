@@ -1,11 +1,11 @@
 ﻿using LoginandRegistration.Models.DTO;
-
+using LoginandRegistration.Models;
 namespace LoginandRegistration.Interfaces
 {
-    public interface IManageDoctors<k,T>
+    public interface IManageDoctors
     {
 
         public Task<UserDTO?> DoctorRegistration(DoctorDTO doctor);
-        public Task<k> UpdateEmployeeStatus(StatusDTO status);
+        public Task<StatusDTO> StatusUpdate(StatusDTO status);
     }
 }

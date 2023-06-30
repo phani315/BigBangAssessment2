@@ -1,4 +1,5 @@
 ﻿using LoginandRegistration.Interfaces;
+using LoginandRegistration.Models;
 using LoginandRegistration.Models.DTO;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,14 @@ namespace LoginandRegistration.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly IManageUser _manageUser;
-        private readonly IManageDoctors<DoctorDTO ,int>_managedoctor;
+        private readonly IManageDoctors _managedoctor;
 
-        public RegistrationController(IManageUser manageUser)
+
+
+        public RegistrationController(IManageUser manageUser,IManageDoctors managedoctor)
         {
             _manageUser = manageUser;
+            _managedoctor = managedoctor;
         }
 
         [HttpPost]
@@ -52,6 +56,23 @@ namespace LoginandRegistration.Controllers
                 return Ok(result);
             return BadRequest("Invalid credentials");
 
+        }
+
+        [HttpPut("Update Doctor Status")]
+        [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Doctor>> UpdateDoctorStatus(StatusDTO statusDTO)
+        {
+            if (statusDTO != null)
+            {
+                var result = await _managedoctor.StatusUpdate(statusDTO);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return BadRequest("Cannot update employee status right now");
+            }
+            return BadRequest("Enter the credentials properly");
         }
     }
 }

@@ -38,11 +38,14 @@ namespace LoginandRegistration
                     });
 
             builder.Services.AddScoped<IManageUser, ManageUserService>();
+            builder.Services.AddScoped<IManageDoctors, ManageDoctorService>();
+
             builder.Services.AddScoped<IRepo<User ,int>,UserRepo>();
             builder.Services.AddScoped<IRepo<Doctor, int>,DoctorRepo>();
             builder.Services.AddScoped<IRepo<Patient, int>,PatientRepo>();
             builder.Services.AddScoped<IGenerateToken,GenerateTokenService>();
             builder.Services.AddScoped<IRepo<Admin,int>, AdminRepo>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

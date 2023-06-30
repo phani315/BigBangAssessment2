@@ -1,20 +1,17 @@
 ﻿using LoginandRegistration.Interfaces;
 using LoginandRegistration.Models;
 using LoginandRegistration.Models.DTO;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace LoginandRegistration.Services
 {
-    public class ManageDoctorService :IManageDoctors<Doctor ,int>
+    public class ManageDoctorService :IManageDoctors
     {
         private readonly IRepo<Doctor, int> _doctorRepo;
         private readonly IRepo<User, int> _userRepo;
         private readonly IGenerateToken _tokenService;
-
-
-
-
 
         public ManageDoctorService( IRepo<Doctor, int> doctorRepo, IRepo<User, int> userRepo, IGenerateToken tokenService)
         {
@@ -54,7 +51,7 @@ namespace LoginandRegistration.Services
             return myUser;
         }
          
-        public async Task<Doctor> UpdateEmployeeStatus(StatusDTO status)
+        public async Task<StatusDTO> StatusUpdate(StatusDTO status)
         {
             var doctor = await _doctorRepo.Get(status.DoctorId);
             if (doctor != null)
@@ -62,12 +59,14 @@ namespace LoginandRegistration.Services
                 doctor.Status = status.Status;
                 var updateDoctor = await _doctorRepo.Update(doctor);
                 if (updateDoctor != null)
-                    return updateDoctor;
+                    return status;
                 return null;
             }
             return null;
         }
 
+
+   
 
     }
 }
