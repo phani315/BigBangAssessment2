@@ -5,7 +5,7 @@ namespace LoginandRegistration.Models
 {
     public class Admin
     {
-        public int Id { get; set; }
+        public int AdminId { get; set; }
         [ForeignKey("UserId")]
         public Users? Users { get; set; }
 

@@ -7,7 +7,7 @@ namespace LoginandRegistration.Models
     {
         [Key]
         public int DoctorId { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("DoctorId")]
         public Users? Users { get; set; }
 
 

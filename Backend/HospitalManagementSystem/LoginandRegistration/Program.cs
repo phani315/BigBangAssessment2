@@ -20,6 +20,23 @@ namespace LoginandRegistration
             {
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("conn"));
             });
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"])),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+
+
+
+
+
 
             var app = builder.Build();
 
