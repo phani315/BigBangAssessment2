@@ -12,6 +12,7 @@ namespace LoginandRegistration.Controllers
     {
         private readonly IManageUser _manageUser;
         private readonly IManageDoctors _managedoctor;
+        private readonly IManagePatients _managepatients;
 
 
 
@@ -33,18 +34,6 @@ namespace LoginandRegistration.Controllers
             return BadRequest("Unable to register at this moment");
         }
 
-
-        [HttpPost]
-        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<ActionResult<UserDTO>> RegisterAsPatient(PatientDTO patientDTO)
-        {
-            var result = await _manageUser.PatientRegistration(patientDTO);
-            if (result != null)
-                return Ok(result);
-            return BadRequest("Unable to register at this moment");
-        }
 
         [HttpPost("Login")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]

@@ -77,34 +77,6 @@ namespace LoginandRegistration.Services
 
 
 
-        public async Task<UserDTO> PatientRegistration(PatientDTO user)
-        {
-            UserDTO myUser = null;
-            var hmac = new HMACSHA512();
-            user.Users.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordClear ?? "1234"));
-            user.Users.PasswordKey = hmac.Key;
-            user.Users.Role = "patient";
-
-            var users = await _patientRepo.GetAll();
-            if (users != null)
-            {
-                var myAdminUser = users.FirstOrDefault(u => u.EmailId == user.EmailId && u.PhoneNumber == user.PhoneNumber);
-                if (myAdminUser != null)
-                {
-                    return null;
-                }
-            }
-            var userResult = await _userRepo.Add(user.Users);
-            var patientResult = await _patientRepo.Add(user);
-            if (userResult != null && patientResult != null)
-            {
-                myUser = new UserDTO();
-                myUser.UserId = patientResult.PatientId;
-                myUser.Role = userResult.Role;
-                myUser.Token = _tokenService.GenerateToken(myUser);
-            }
-            return myUser;
-        }
 
 
 
