@@ -35,6 +35,10 @@ namespace LoginandRegistration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -114,7 +118,7 @@ namespace LoginandRegistration.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("LoginandRegistration.Models.Users", b =>
+            modelBuilder.Entity("LoginandRegistration.Models.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -122,10 +126,10 @@ namespace LoginandRegistration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
-                    b.Property<byte[]>("HashKey")
+                    b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<byte[]>("Password")
+                    b.Property<byte[]>("PasswordKey")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Role")
@@ -138,7 +142,7 @@ namespace LoginandRegistration.Migrations
 
             modelBuilder.Entity("LoginandRegistration.Models.Admin", b =>
                 {
-                    b.HasOne("LoginandRegistration.Models.Users", "Users")
+                    b.HasOne("LoginandRegistration.Models.User", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -147,7 +151,7 @@ namespace LoginandRegistration.Migrations
 
             modelBuilder.Entity("LoginandRegistration.Models.Doctor", b =>
                 {
-                    b.HasOne("LoginandRegistration.Models.Users", "Users")
+                    b.HasOne("LoginandRegistration.Models.User", "Users")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -158,7 +162,7 @@ namespace LoginandRegistration.Migrations
 
             modelBuilder.Entity("LoginandRegistration.Models.Patient", b =>
                 {
-                    b.HasOne("LoginandRegistration.Models.Users", "Users")
+                    b.HasOne("LoginandRegistration.Models.User", "Users")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)

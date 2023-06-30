@@ -8,7 +8,7 @@ namespace LoginandRegistration.Models
         [Key]
         public int PatientId { get; set; }
         [ForeignKey("PatientId")]
-        public Users? Users { get; set; }
+        public User? Users { get; set; }
 
 
         [Required(ErrorMessage = "Name is required.")]

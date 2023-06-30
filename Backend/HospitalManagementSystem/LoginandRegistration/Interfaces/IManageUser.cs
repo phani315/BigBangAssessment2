@@ -5,8 +5,10 @@ namespace LoginandRegistration.Interfaces
     public interface IManageUser
     {
         public Task<UserDTO?> Login(UserDTO user);
-        public Task<UserDTO?> RegisterDoctor(DoctorDTO doctorDTO);
-        public Task<UserDTO?> RegisterPatient(PatientDTO patientDTO);
+        public Task<UserDTO?> PatientRegistration(PatientDTO patientDTO);
+        public Task<UserDTO?> AdminRegistration(AdminDTO adminDTO);
+
+
 
 
 

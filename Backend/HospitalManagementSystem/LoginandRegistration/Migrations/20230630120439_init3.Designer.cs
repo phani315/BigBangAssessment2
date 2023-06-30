@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginandRegistration.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230630074728_init")]
-    partial class init
+    [Migration("20230630120439_init3")]
+    partial class init3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,8 @@ namespace LoginandRegistration.Migrations
 
             modelBuilder.Entity("LoginandRegistration.Models.Admin", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("AdminId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -40,10 +37,14 @@ namespace LoginandRegistration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AdminId");
 
                     b.HasIndex("UserId");
 
@@ -53,10 +54,7 @@ namespace LoginandRegistration.Migrations
             modelBuilder.Entity("LoginandRegistration.Models.Doctor", b =>
                 {
                     b.Property<int>("DoctorId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorId"), 1L, 1);
 
                     b.Property<DateTime?>("DateOfBirth")
                         .IsRequired()
@@ -84,12 +82,7 @@ namespace LoginandRegistration.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("DoctorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Doctors");
                 });
@@ -97,10 +90,7 @@ namespace LoginandRegistration.Migrations
             modelBuilder.Entity("LoginandRegistration.Models.Patient", b =>
                 {
                     b.Property<int>("PatientId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"), 1L, 1);
 
                     b.Property<string>("BloodType")
                         .HasColumnType("nvarchar(max)");
@@ -125,17 +115,12 @@ namespace LoginandRegistration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("PatientId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("LoginandRegistration.Models.Users", b =>
+            modelBuilder.Entity("LoginandRegistration.Models.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -143,10 +128,10 @@ namespace LoginandRegistration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
-                    b.Property<byte[]>("HashKey")
+                    b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<byte[]>("Password")
+                    b.Property<byte[]>("PasswordKey")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Role")
@@ -159,7 +144,7 @@ namespace LoginandRegistration.Migrations
 
             modelBuilder.Entity("LoginandRegistration.Models.Admin", b =>
                 {
-                    b.HasOne("LoginandRegistration.Models.Users", "Users")
+                    b.HasOne("LoginandRegistration.Models.User", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -168,18 +153,22 @@ namespace LoginandRegistration.Migrations
 
             modelBuilder.Entity("LoginandRegistration.Models.Doctor", b =>
                 {
-                    b.HasOne("LoginandRegistration.Models.Users", "Users")
+                    b.HasOne("LoginandRegistration.Models.User", "Users")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("LoginandRegistration.Models.Patient", b =>
                 {
-                    b.HasOne("LoginandRegistration.Models.Users", "Users")
+                    b.HasOne("LoginandRegistration.Models.User", "Users")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Users");
                 });
