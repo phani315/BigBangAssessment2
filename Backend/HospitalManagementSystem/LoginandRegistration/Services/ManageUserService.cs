@@ -3,6 +3,7 @@ using LoginandRegistration.Models.DTO;
 using LoginandRegistration.Models;
 using System.Security.Cryptography;
 using System.Text;
+using LoginandRegistration.Models.Context;
 
 namespace LoginandRegistration.Services
 {
@@ -27,14 +28,14 @@ namespace LoginandRegistration.Services
         public async Task<UserDTO> Login(UserDTO userDTO)
         {
             UserDTO user = null;
-            var userData = await _userRepo.Get(userDTO.UserId);
+            var userData = await GetByEmail(userDTO.Email);
             if (userData != null)
             {
-                var hmac = new HMACSHA512(userData.PasswordHash);
+                var hmac = new HMACSHA512(userData.PasswordKey);
                 var userPass = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
                 for (int i = 0; i < userPass.Length; i++)
                 {
-                    if (userPass[i] != userData.PasswordKey[i])
+                    if (userPass[i] != userData.PasswordHash[i])
                         return null;
                 }
                 user = new UserDTO();
@@ -73,6 +74,23 @@ namespace LoginandRegistration.Services
             }
             return myUser;
         }
+
+        public async Task<User?> GetByEmail(string email)
+        {
+
+            var users = await _userRepo.GetAll();
+
+            var user =  users.FirstOrDefault(u=>u.Email==email);
+            if (user != null)
+            {
+                return user;
+            }
+            else
+            {
+                throw new Exception("Database is empty");
+            }
+        }
+
 
 
 

@@ -8,5 +8,8 @@ namespace LoginandRegistration.Interfaces
         public Task<UserDTO?> DoctorRegistration(DoctorDTO doctor);
         public Task<StatusDTO> StatusUpdate(StatusDTO status);
 
+        public Task<ICollection<Doctor?>> GetAllDoctorsBasedOnSpecialization(string Specialization);
+
+
     }
 }

@@ -85,7 +85,6 @@ namespace LoginandRegistration.Services
                 var patient = _context.Patients.FirstOrDefault(u => u.PatientId == item.PatientId); ;
                 if (patient != null)
                 {
-                    patient.EmailId = item.EmailId != null ? item.EmailId : patient.EmailId;
                     patient.PhoneNumber = item.PhoneNumber != null ? item.PhoneNumber : patient.PhoneNumber;
 
                     await _context.SaveChangesAsync();

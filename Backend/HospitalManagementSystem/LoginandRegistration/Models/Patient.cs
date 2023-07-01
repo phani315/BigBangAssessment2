@@ -27,13 +27,8 @@ namespace LoginandRegistration.Models
         [Required(ErrorMessage = "Gender is required")]
         public string? Gender { get; set; }
 
-       
         public string? BloodType { get; set; }
 
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string? EmailId { get; set; }
 
         
 

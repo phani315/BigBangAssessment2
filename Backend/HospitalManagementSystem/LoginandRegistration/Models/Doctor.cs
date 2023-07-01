@@ -24,16 +24,9 @@ namespace LoginandRegistration.Models
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string? PhoneNumber { get; set; }
 
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string? EmailId { get; set; }
-
         [Required(ErrorMessage = "Specialization is required")]
         public string? Specialization { get; set; }
-
         public int Experience { get; set; }
-
         public string? Status { get; set; } 
 
 

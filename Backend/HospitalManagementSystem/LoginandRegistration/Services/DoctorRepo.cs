@@ -68,7 +68,7 @@ namespace LoginandRegistration.Services
         {
             try
             {
-                var doctor = await _context.Doctors.Include(i => i.Users).ToListAsync();
+                var doctor = await _context.Doctors.ToListAsync();
                 if (doctor.Count > 0)
                     return doctor;
             }
@@ -87,7 +87,6 @@ namespace LoginandRegistration.Services
                 if (doctor != null)
                 {
                     doctor.Status = item.Status != null ? item.Status : doctor.Status;
-                    doctor.EmailId = item.EmailId != null ? item.EmailId : doctor.EmailId;
                     doctor.Specialization = item.Specialization != null ? item.Specialization : doctor.Specialization;
                     doctor.Experience = item.Experience != null ? item.Experience : doctor.Experience;
                     await _context.SaveChangesAsync();

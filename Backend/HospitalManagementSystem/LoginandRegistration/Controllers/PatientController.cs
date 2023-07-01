@@ -1,6 +1,9 @@
 ﻿using LoginandRegistration.Interfaces;
 using LoginandRegistration.Models.DTO;
+using LoginandRegistration.Models;
+
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace LoginandRegistration.Controllers
 {
@@ -10,16 +13,13 @@ namespace LoginandRegistration.Controllers
         [ApiController]
         public class PatientController : ControllerBase
         {
-            private readonly IManageUser _manageUser;
-            private readonly IManageDoctors _managedoctor;
             private readonly IManagePatients _managepatients;
 
 
 
-            public PatientController(IManageUser manageUser, IManageDoctors managedoctor)
+            public PatientController(IManagePatients managepatients)
             {
-                _manageUser = manageUser;
-                _managedoctor = managedoctor;
+            _managepatients = managepatients;
             }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace LoginandRegistration.Controllers
                 return Ok(result);
             return BadRequest("Unable to register at this moment");
         }
-
+       
 
 
 

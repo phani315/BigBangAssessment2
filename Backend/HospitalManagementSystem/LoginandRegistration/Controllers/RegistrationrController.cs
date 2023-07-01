@@ -22,17 +22,7 @@ namespace LoginandRegistration.Controllers
             _managedoctor = managedoctor;
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<ActionResult<UserDTO>> RegisterAsDoctor(DoctorDTO doctorDTO)
-        {
-            var result = await _managedoctor.DoctorRegistration(doctorDTO);
-            if (result != null)
-                return Ok(result);
-            return BadRequest("Unable to register at this moment");
-        }
 
 
         [HttpPost("Login")]
@@ -47,21 +37,6 @@ namespace LoginandRegistration.Controllers
 
         }
 
-        [HttpPut("Update Doctor Status")]
-        [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Doctor>> UpdateDoctorStatus(StatusDTO statusDTO)
-        {
-            if (statusDTO != null)
-            {
-                var result = await _managedoctor.StatusUpdate(statusDTO);
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                return BadRequest("Cannot update employee status right now");
-            }
-            return BadRequest("Enter the credentials properly");
-        }
+      
     }
 }

@@ -34,7 +34,7 @@ namespace LoginandRegistration.Services
             var users = await _patientRepo.GetAll();
             if (users != null)
             {
-                var myAdminUser = users.FirstOrDefault(u => u.EmailId == user.EmailId && u.PhoneNumber == user.PhoneNumber);
+                var myAdminUser = users.FirstOrDefault(u => u.Name == user.Name && u.PhoneNumber == user.PhoneNumber);
                 if (myAdminUser != null)
                 {
                     return null;
@@ -53,15 +53,7 @@ namespace LoginandRegistration.Services
         }
 
 
-        public async Task<ICollection<Doctor>> GetAllDoctorsBasedOnSpecialization(string specialization) { 
-      
-            var doctor = (await _doctorRepo.GetAll()).Where(s => s.Specialization == specialization).ToList();
-            if (doctor != null)
-            {
-                    return doctor;
-            }
-            return null;
-        }
+
 
     }
 }

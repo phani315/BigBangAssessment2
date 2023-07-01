@@ -47,6 +47,7 @@ namespace LoginandRegistration.Services
                 var user = await _userContext.Users.FirstOrDefaultAsync(u => u.UserId == key);
                 return user;
             }
+
             throw new Exception("Database is empty");
         }
 
