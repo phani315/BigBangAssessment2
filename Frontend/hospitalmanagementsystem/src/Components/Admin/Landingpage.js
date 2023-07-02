@@ -4,7 +4,9 @@ import ManageDoctors from '../ManageDoctors/ManageDoctors';
 import logo from "../Images/download.png"
 import {setData,useEffect,useState} from 'react';
 import Card from './DoctorProfileCard';
-
+import doctorimg from '../Images/doctor.png'
+import patientimg from "../Images/hospitalisation.png"
+import doctorpic from "../Images/doctor2.png";
 import { BrowserRouter, Link, Route, Routes, useNavigate } from "react-router-dom";
 
 function AdminLandingPage() {
@@ -15,11 +17,6 @@ function AdminLandingPage() {
     const [CountOfPatients ,SetPatientsCount]=useState(0);
 
 
-    
-
-
-
-
     const GetAllDoctors= async () => {
         try {
           const response = await fetch('https://localhost:7132/api/Doctor/GetAllctors');
@@ -27,7 +24,7 @@ function AdminLandingPage() {
           setCards(data);
           const inactive = data.filter(user => user.status=="Inactive").length;
           SetInactiveDoctors(inactive);
-          const active = data.filter(user => user.status=="active").length;
+          const active = data.filter(user => user.status=="approved").length;
           SetactiveDoctors(active);
 
 
@@ -60,7 +57,7 @@ function AdminLandingPage() {
       }, []);
 
   return (
-    <div>
+    <div class="adminlandingpage">
 
 <nav className="navbar">
       <div className="navbar-logo">
@@ -82,44 +79,45 @@ function AdminLandingPage() {
   <div class="dashboard">
   <div className="card">
       <div className="card-content">
-        <h3 className="card-title">Active Doctors</h3>
-        <p className="card-description">{CountOfactiveDoctors}</p>
+        <img class="iconimg"src={doctorimg}></img>
+        <h3 className="card-title-landingpage">Active Doctors</h3>
+        <p className="card-description-count">{CountOfactiveDoctors}</p>
       </div>
     </div>
 
     <div className="card">
       <div className="card-content">
-        <h3 className="card-title">Inactive Doctors</h3>
-        <p className="card-description">{CountOfInactiveDoctors}</p>
+      <img class="iconimg"src={doctorpic}></img>
+
+        <h3 className="card-title-landingpage">Inactive Doctors</h3>
+        <p className="card-description-count">{CountOfInactiveDoctors}</p>
       </div>
     </div>
 
     
     <div className="card">
       <div className="card-content">
-        <h3 className="card-title">Registered Patients</h3>
-        <p className="card-description">{CountOfPatients}</p>
+      <img class="iconimg"src={patientimg}></img>
+
+        <h3 className="card-title-registeredpatient">Registered Patients</h3>
+        <p className="card-description-count">{CountOfPatients}</p>
       </div>
     </div>
-    <div className="card">
-      <div className="card-content">
-        <h3 className="card-title">Inactive Doctors</h3>
-        <p className="card-description">{CountOfInactiveDoctors}</p>
-      </div>
-    </div>
+  
 
   </div>
   
    
+<div className='doctorlist'>
 
 
 
   <div className="card-container">
-      {cards.filter(item=> item.status =="active").map(card => (
+      {cards.filter(item=> item.status =="approved").map(card => (
         <Card c={card}/>
       ))}
     </div>
-
+</div>
 </div>
 
     

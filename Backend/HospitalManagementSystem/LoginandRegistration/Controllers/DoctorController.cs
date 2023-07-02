@@ -98,7 +98,26 @@ namespace LoginandRegistration.Controllers
                 {
                     return Ok(result);
                 }
-                return BadRequest("Cannot update employee status right now");
+                return BadRequest("Cannot update Doctor status right now");
+            }
+            return BadRequest("Enter the credentials properly");
+        }
+
+
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Doctor>> UpdateDoctorDetails(Doctor doctor)
+        {
+            if (doctor != null)
+            {
+                var result = await _doctorrepo.Update(doctor);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return BadRequest("Cannot update Doctor Details right now");
             }
             return BadRequest("Enter the credentials properly");
         }

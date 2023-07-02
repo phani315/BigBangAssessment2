@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import registerbg from '../Images/registerbg.jpg'
 
 const Login=()=>{ 
     const navigate = useNavigate();
@@ -58,7 +59,15 @@ const Login=()=>{
                 navigate("/patientlandingpage")
               } 
             }
+            {if(myData.role.toLowerCase()=="doctor"){
+                localStorage.setItem('userId',myData.userId)
+
+                navigate("/doctorprofile")
+                
+              } 
+            }
               sessionStorage.setItem('role',myData.role)
+              
               console.log(myData)
         }).catch((err)=>{
           console.log(err.error)
@@ -70,7 +79,7 @@ const Login=()=>{
                 <h1>Welcome To LifeLine Hospitals</h1>
                 <p>
                     Welcome to LifeLine Hospitals, Please log in to access your account
-                    and manage your employment,If you don't have account yet, You can register below
+                    If you don't have account yet, You can register below
                 </p>
 
             </div>
@@ -89,12 +98,12 @@ const Login=()=>{
             </div>  
 			<button type="submit" onClick={submitThis}>Login</button>
 
-
-            <p>Dont have an account?</p><br>
+            <div className='registeras'>
+            <p>  Dont have an account?</p><br>
             </br>
             <Link to="/register" className="link" onClick={()=>{localStorage.setItem("role","doctor")}}>Register as a doctor </Link> or
             <Link to="/register" className="link"  onClick={()=>{localStorage.setItem("role","patient")}}> Patient </Link>
-
+                </div>
 
 
             </div>

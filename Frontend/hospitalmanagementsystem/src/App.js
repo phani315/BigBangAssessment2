@@ -9,6 +9,7 @@ import ManageDoctors from './Components/ManageDoctors/ManageDoctors';
 import LandingPage from './Components/Admin/Landingpage'; 
 import PatientLandingPage from './Components/PatientLandingPage/PatientLandingPage';
 import Register from './Components/Register/Register';
+import Profile from './Components/DoctorLandingPage/doctorlandingpage';
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ function App() {
       <Route path='/managedoctors' element={<ManageDoctors/>}/>
       <Route path='/patientlandingpage' element={<PatientLandingPage/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path='doctorprofile' element={<Profile/>}></Route>
 
       
 

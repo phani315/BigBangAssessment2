@@ -4,6 +4,8 @@ import React from 'react';
 import AdminLandingPage from './Landingpage';
 import { useLocation ,Link, useNavigate} from 'react-router-dom';
 
+import emailicon from "../Images/email.png"
+import phoneicon from "../Images/phone.png"
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -43,10 +45,10 @@ const Card = (props) => {
 
 
   return (
-    <div className="card">
+    <div className="card-doctor">
       <div className="card-content">
         <h3 className="card-title">{props.c.name}</h3>
-        <p className="card-description">Specialization:{props.c.specialization}<br/>Experience :{props.c.experience}<br/>PhoneNUmber : {props.c.phoneNumber}</p>
+        <p className="small">Specialization: {props.c.specialization}<br/>Experience :{props.c.experience}<br/><img class="phoneicon"src={phoneicon}></img> {props.c.phoneNumber}</p>
         {showButton && (
    
 <button id="approvebtn" onClick={()=>{
@@ -61,6 +63,12 @@ const Card = (props) => {
   }} 
   value="approved">Approve</button>       
       )}      </div>
+         
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
     </div>
   );
 };

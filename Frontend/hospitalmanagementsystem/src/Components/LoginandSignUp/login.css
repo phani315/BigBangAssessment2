@@ -23,7 +23,7 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
     position: relative;
     margin-top: 25px;
-    width:420px;
+    width:500px;
     margin-left: -33%;
     height:auto;
     background-color: #EBF7E3;
@@ -148,6 +148,10 @@ color: #66B032;
     
     
     }
+.registeras{
+    margin-left: 10%;
+    margin-top: 10px;
+}
 
 @media only screen and (max-width: 900px) {
     

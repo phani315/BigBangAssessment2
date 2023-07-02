@@ -176,6 +176,8 @@ function Register() {
                     <option value='doctor'>doctor</option>
                     <option value='patient'>patient</option>
                 </select> */}
+                         <center><h2 > Registration form</h2> </center> 
+
                 <div class="input-box">
 
                 <label>Name</label>
