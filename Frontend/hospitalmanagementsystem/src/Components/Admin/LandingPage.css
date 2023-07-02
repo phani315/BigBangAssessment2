@@ -1,0 +1,105 @@
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .navbar-logo a {
+    color: #fff;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-item {
+    margin-right: 10px;
+  }
+  
+  .navbar-item a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-menu {
+      display: none;
+    }
+  
+    .navbar-logo {
+      margin-right: auto;
+    }
+  
+    .navbar-toggle {
+      cursor: pointer;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+    }
+  
+    .navbar-toggle .icon {
+      font-size: 1.2rem;
+    }
+  
+    .navbar-toggle.active .icon {
+      transform: rotate(90deg);
+    }
+  
+    .navbar-menu-mobile {
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+  
+    .navbar-menu-mobile.active {
+      display: block;
+    }
+  
+    .navbar-menu-mobile li {
+      padding: 10px;
+      border-bottom: 1px solid #555;
+    }
+  
+    .navbar-menu-mobile a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 8%;
+  }
+.dashboard{
+   
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-content: space-around;
+    margin-left: 6%;
+    
+}
+  
+  
