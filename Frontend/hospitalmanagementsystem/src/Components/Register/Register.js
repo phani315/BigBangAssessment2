@@ -1,9 +1,10 @@
-import React, { useState ,useRef} from "react";
+import React, { useState,useEffect ,useRef} from "react";
 import './Register.css'
 import { useDispatch } from "react-redux";
 //  import { addUser } from "../HospitalSlice"
 // import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
+import registerbg from '../Images/registerbg.jpg'
 
 
 
@@ -12,7 +13,7 @@ function Register() {
 
 
     // const inputRef=useRef(null);
-    const [role,setRole]=useState();
+    const [role,setRole]=useState("");
     const[confirmPassword,setConfirmPassword]=useState("");
     const[passwordToggle,setPasswordToggle]=useState(false);
     //var dispatch=useDispatch();
@@ -152,57 +153,80 @@ function Register() {
         localStorage.setItem("userId",myData.userId);
     }
 
+    useEffect(() => {
+        const roleofuser = localStorage.getItem("role");
+        setRole(roleofuser)
+        console.log(roleofuser)
+
+
+      }, []);
+
+
     return (
-        <div>
-            {/* <NavBar user={user}/> */}
 
-            <div>
+        <body class="body-register">
+        <section class="container-register">
+        <form action="#" class="form">
+               
 
-                <select defaultValue={'DEFAULT'} onChange={(event)=>{
+                {/* <select defaultValue={'DEFAULT'} onChange={(event)=>{
                     setRole(event.target.value)
                 }}>
                     <option value="DEFAULT" disabled>Choose....</option>
                     <option value='doctor'>doctor</option>
                     <option value='patient'>patient</option>
-                </select>
+                </select> */}
+                <div class="input-box">
 
                 <label>Name</label>
                 <input type="text" onChange={(event)=>{
                         setDoctor({...doctor,"name":event.target.value})
                         setPatient({...patient,"name":event.target.value})
                 }}/>
+                </div>
+                <div class="input-box">
+
 
                 <label>Email</label>
                 <input type="email" onChange={assignEmail}/>
+                </div>
+                <div class="input-box">
 
                 <label>Password</label>
                 <input type="password" onChange={(event)=>{
                     setDoctor({...doctor,"passwordClear":event.target.value})
                     setPatient({...patient,"passwordClear":event.target.value})
                 }}/>
+                </div>
 
-                
+                <div class="column">
+
+                <div class="input-box">
+
 
                 <label>Date Of Birth</label>
                 <input type="datetime-local" onChange={(event)=>{
                     setDoctor({...doctor,"dateOfBirth":event.target.value})
                     setPatient({...patient,"dateOfBirth":event.target.value})
                 }}/>
-
+                </div>
                 
+                <div class="input-box">
 
                 <label>Phone</label>
                 <input type="tel" onChange={(event)=>{
                     setDoctor({...doctor,"phoneNumber":event.target.value})
                     setPatient({...patient,"phoneNumber":event.target.value})
                 }}/>
+                </div>
+                </div>
 
              
 
                 {
                     role=="doctor"?(
-                        <div>
-                            <label>Specilization</label>
+                        <div class="input-box">
+                        <label>Specilization</label>
                             <input type="text" onChange={(event)=>{
                                 setDoctor({...doctor,"specialization":event.target.value})
                             }}/>
@@ -210,8 +234,8 @@ function Register() {
                     ):(
                         <div>
                             {role =="patient" &&
-                                <div>
-                                    <label>Blood Group</label>
+        <div class="input-box">
+          <label>Blood Group</label>
                                     <input type="text" onChange={(event)=>{
                                         setDoctor({...patient,"bloodType":event.target.value})
                                     }}/>
@@ -224,19 +248,20 @@ function Register() {
 
                 {
                     role=="doctor"?(
-                        <div>
-                            <label>YearsOfExperience</label>
+                        <div class="input-box">
+                        <label>YearsOfExperience</label>
                             <input type="number" onChange={(event)=>{
                                 setDoctor({...doctor,"experience":event.target.value})
                             }}/>
                         </div>
                     ):(
-                        <div>
-                            {role =="patient" &&
-                                <div>
-                                      <select defaultValue={'DEFAULT'} onChange={(event)=>{
+                        <div class="input-box">
+                        {role =="patient" &&
+        <div class="gender-box">Gender
+        <select defaultValue={'DEFAULT'} onChange={(event)=>{
                     setPatient({...patient,"gender":event.target.value})
                 }}>
+                    
                     <option value="DEFAULT" disabled>Select...</option>
                     <option value='Male'>Male</option>
                     <option value='Female'>Female</option>
@@ -259,8 +284,9 @@ function Register() {
                         </div>
                     )
                 }
-            </div>
-        </div>
+            </form>
+        </section>
+        </body>
     )
 }
 export default Register;

@@ -51,7 +51,7 @@ const Login=()=>{
           "body":JSON.stringify({...details,"details":{} })})
      .then(async (data)=>{
               var myData = await data.json();
-              {if(myData.role.toLowerCase()=="doctor"){
+              {if(myData.role.toLowerCase()=="admin"){
                 navigate("/landingPage")
               } }
               {if(myData.role.toLowerCase()=="patient"){
@@ -92,9 +92,10 @@ const Login=()=>{
 
             <p>Dont have an account?</p><br>
             </br>
-            <Link to="/register" className="link" > Register as a doctor </Link>
+            <Link to="/register" className="link" onClick={()=>{localStorage.setItem("role","doctor")}}>Register as a doctor </Link> or
+            <Link to="/register" className="link"  onClick={()=>{localStorage.setItem("role","patient")}}> Patient </Link>
 
-            <a href='' >Register as a doctor </a> or <a href=''>patient </a>
+
 
             </div>
         </div>
