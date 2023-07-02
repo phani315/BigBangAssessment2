@@ -67,7 +67,7 @@ namespace LoginandRegistration.Services
         {
             try
             {
-                var patient = await _context.Patients.Include(i => i.Users).ToListAsync();
+                var patient = await _context.Patients.ToListAsync();
                 if (patient.Count > 0)
                     return patient;
             }

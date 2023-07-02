@@ -2,6 +2,7 @@
 using LoginandRegistration.Models;
 using LoginandRegistration.Models.DTO;
 using LoginandRegistration.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginandRegistration.Controllers
@@ -9,9 +10,11 @@ namespace LoginandRegistration.Controllers
    
         [Route("api/[controller]/[action]")]
         [ApiController]
+        [EnableCors("CORS")]
 
 
-        public class AdminController : ControllerBase
+
+    public class AdminController : ControllerBase
         {
             private readonly IManageUser _manageadmin;
             public AdminController(IManageUser manageadmin)

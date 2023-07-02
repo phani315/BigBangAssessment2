@@ -28,7 +28,8 @@ namespace LoginandRegistration.Services
         public async Task<UserDTO> Login(UserDTO userDTO)
         {
             UserDTO user = null;
-            var userData = await GetByEmail(userDTO.Email);
+            var users = await _userRepo.GetAll();
+            var userData = users.FirstOrDefault(u => u.Email == userDTO.Email);
             if (userData != null)
             {
                 var hmac = new HMACSHA512(userData.PasswordKey);

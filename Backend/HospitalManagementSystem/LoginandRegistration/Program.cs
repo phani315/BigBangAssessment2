@@ -21,6 +21,7 @@ namespace LoginandRegistration
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+       
             builder.Services.AddDbContext<UserContext>(opts =>
             {
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("conn"));
@@ -39,12 +40,21 @@ namespace LoginandRegistration
 
             builder.Services.AddScoped<IManageUser, ManageUserService>();
             builder.Services.AddScoped<IManageDoctors, ManageDoctorService>();
+            builder.Services.AddScoped<IManagePatients, ManagePatientsService>();
+
 
             builder.Services.AddScoped<IRepo<User ,int>,UserRepo>();
             builder.Services.AddScoped<IRepo<Doctor, int>,DoctorRepo>();
             builder.Services.AddScoped<IRepo<Patient, int>,PatientRepo>();
             builder.Services.AddScoped<IGenerateToken,GenerateTokenService>();
             builder.Services.AddScoped<IRepo<Admin,int>, AdminRepo>();
+            builder.Services.AddCors(opts =>
+            {
+                opts.AddPolicy("CORS", options =>
+                {
+                    options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
 
             var app = builder.Build();
 
@@ -54,8 +64,8 @@ namespace LoginandRegistration
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors("CORS");
 
-            app.UseHttpsRedirection();
             app.UseAuthentication();
 
             app.UseAuthorization();

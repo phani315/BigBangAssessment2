@@ -1,6 +1,7 @@
 ﻿using LoginandRegistration.Interfaces;
 using LoginandRegistration.Models;
 using LoginandRegistration.Models.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -9,6 +10,8 @@ namespace LoginandRegistration.Controllers
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [EnableCors("CORS")]
+
     public class DoctorController : ControllerBase
     {
         private readonly IManageDoctors _managedoctor;
@@ -82,11 +85,11 @@ namespace LoginandRegistration.Controllers
             return null;
 
         }
-
-        [HttpPut("Update Doctor Status")]
+        [EnableCors("CORS")]
+        [HttpPost]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Doctor>> UpdateDoctorStatus(StatusDTO statusDTO)
+        public async Task<ActionResult<Doctor>>UpdateDoctorStatus(StatusDTO statusDTO)
         {
             if (statusDTO != null)
             {

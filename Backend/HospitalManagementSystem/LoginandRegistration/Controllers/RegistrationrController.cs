@@ -8,6 +8,8 @@ namespace LoginandRegistration.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [EnableCors("CORS")]
+
     public class RegistrationController : ControllerBase
     {
         private readonly IManageUser _manageUser;
