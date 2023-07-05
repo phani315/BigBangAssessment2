@@ -1,18 +1,26 @@
 
 
-.container body{
+.body-login{
 
-    background-color: white;
+    background: url("../Images/registerbg.jpg");
+
+    background-size: cover;
+    background-color: black;
+    background-repeat: no-repeat;
+    width: 100%;
+
 }
 
-.container{
-
+.container-login{
+background: url("../Images/registerbg.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+height: 100vh;
 position: relative;
-margin-top:50px;
 left: 0;
-width:98%;
 word-wrap: break-word;
 padding: 10px 10px 10px 10px;
+box-shadow: 50px;
 display: grid;
 grid-template-columns: auto auto;
 font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -25,7 +33,9 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-top: 25px;
     width:500px;
     margin-left: -33%;
-    height:auto;
+    height:79%;
+
+    opacity: 70%;
     background-color: #EBF7E3;
     border-radius: 20px;
 
@@ -33,7 +43,7 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 .con2{
 
     width: 50%;
-    margin-top: -10%;
+    margin-top: -2%;
     margin-left: 50px;
     height: 450px;
     border-bottom-left-radius: 20px;
@@ -92,7 +102,7 @@ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 13px;
 }
 
-.container button{
+.container-login button{
 
 margin-left: 26%;
 margin-top: 60px;
@@ -109,13 +119,13 @@ background-color:#66B032;
 
 }
 
-.container button:hover{
+.container-login button:hover{
     background-color: #549129;
     color: white;
     border: 2px solid transparent;
 }
 
-.container h2{
+.container-login h2{
     position: relative;
     top: 0%;
     left: 0%;
@@ -123,7 +133,7 @@ background-color:#66B032;
 }
 
 
-.container h1{
+.container-login h1{
 
     position: relative;
     margin-top: -300px;
@@ -152,11 +162,16 @@ color: #66B032;
     margin-left: 10%;
     margin-top: 10px;
 }
+.alerts{
+    text-align: center;
+    color: red;
+    font-size: smaller;
+}
 
 @media only screen and (max-width: 900px) {
     
 
-    .container{
+    .container-login{
         grid-template-columns: auto;
         padding: 10px 10px 10px 10px;
     }

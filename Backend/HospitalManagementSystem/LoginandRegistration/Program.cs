@@ -68,7 +68,6 @@ namespace LoginandRegistration
 
             app.UseAuthentication();
 
-            app.UseAuthorization();
 
 
             app.MapControllers();

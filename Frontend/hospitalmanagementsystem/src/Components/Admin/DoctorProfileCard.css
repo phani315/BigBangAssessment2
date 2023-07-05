@@ -118,4 +118,22 @@ p {
   height: 20px;
   margin-top: 5px;
 }
+
+#approvebtn{
+  background-color: #7ee8fa;
+  box-shadow: 10px;
+  border-radius: 5px;
+  
+
+  padding: 5px;
+  margin: 5px;
+}
+#disapprovebtn{
+  background-color: rgb(244, 67, 96);
+  box-shadow: 10px;
+  border-radius: 5px;
+
+  padding: 5px;
+
+}
   

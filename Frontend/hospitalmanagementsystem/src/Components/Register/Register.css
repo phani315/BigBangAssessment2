@@ -1,25 +1,3 @@
-/* #bgimg{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  
-} */
-/* .register{
-background-image: url('../Images/registerbg.jpg');
-background-size: cover;
-background-position: center;
-min-height: 100vh;
-object-fit: cover;
-
-
-} */
-
-/* Import Google font - Poppins */
 
 .body-register {
   min-height: 100vh;
@@ -31,8 +9,9 @@ object-fit: cover;
   background: rgb(130, 106, 251);
 }
 .container-register {
+
   position: relative;
-  max-width: 700px;
+  max-width: 500px;
   width: 100%;
   background: #fff;
   padding: 25px;
@@ -48,18 +27,18 @@ object-fit: cover;
 .container .form {
   margin-top: 30px;
   margin-left: 20px;
+
 }
 .form .input-box {
   width: 90%;
   margin-top: 20px;
-  padding: 10px;
 }
 .input-box label {
   color: #333;
 }
 .form :where(.input-box input, .select-box) {
   position: relative;
-  height: 50px;
+  height: 30px;
   width: 100%;
   outline: none;
   font-size: 1rem;
@@ -74,7 +53,8 @@ object-fit: cover;
 }
 .form .column {
   display: flex;
-  column-gap: 15px;
+  column-gap: 45px;
+  width: 90%;
 }
 .form .gender-box {
   margin-top: 20px;
@@ -103,9 +83,7 @@ object-fit: cover;
 .gender label {
   color: #707070;
 }
-.address :where(input, .select-box) {
-  margin-top: 15px;
-}
+
 .select-box select {
   height: 100%;
   width: 100%;
@@ -130,7 +108,7 @@ object-fit: cover;
 .form button:hover {
   background: rgb(88, 56, 250);
 }
-/*Responsive*/
+/*Responsive */
 @media screen and (max-width: 500px) {
   .form .column {
     flex-wrap: wrap;
@@ -138,4 +116,4 @@ object-fit: cover;
   .form :where(.gender-option, .gender) {
     row-gap: 15px;
   }
-}
+}  

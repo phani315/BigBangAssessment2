@@ -3,62 +3,113 @@ import axios from 'axios';
 import './doctorlandingpage.css';
 import profile from '../Images/doctor.png';
 import React from "react";
+import phoneicon from "../Images/phone.png"
 
-function Profile() {
-  const [userid, setUserId] = useState([]);
-  const [user, setUser] = useState([]);
+import Login from "../LoginandSignUp/login";
+import { Link } from "react-router-dom";
 
-  const [updateStatus, setUpdateStatus] = useState(true);
-  const [classUpdate, setClassUpdate] = useState("input");
- 
 
-  const GetAllDoctors= async () => {
+function DoctorProfile() {
+  const [user, setUser] = useState(
+    {
+      "doctorId": 0,
+      "users": {},
+      "name": "",
+      "dateOfBirth": new Date(),
+      "phoneNumber": "",
+      "specialization": "",
+      "experience": 0,
+      "status": ""
+    }
+  );
+  const [patients, setPatients] = useState([]);
+
+
+
+  const GetAllPatients = async () => {
     try {
-      const response = await fetch('https://localhost:7132/api/Doctor/GetAllctors');
+      const response = await fetch('https://localhost:7132/api/Patient/GetAllPatients');
       const data = await response.json();
-      const doctor = data.filter(user => user.doctorId==userid);
-      console.log(doctor)
-      setUser(doctor)
+      setPatients(data);
 
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-
   useEffect(() => {
-    const userid = localStorage.getItem("userId");
-    setUserId(userid)
+    GetAllPatients();
+  },);
+
+  const [updateStatus, setUpdateStatus] = useState(true);
+  const [classUpdate, setClassUpdate] = useState("input");
+
+  const userId = Number(localStorage.getItem("userId"));
 
 
-  }, []);
+
+
+  const GetAllDoctors = async () => {
+    try {
+      const response = await fetch('https://localhost:7132/api/Doctor/GetAllctors');
+      var data = await response.json();
+      console.log(data[0])
+      var doctor = data.filter(d => d.doctorId == userId);
+      // setUser({...user,doctor});
+      setUser(doctor[0]);
+      console.log(user.name)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const [updateddata, setupdatedData] = useState('');
+
+  const updateData = () => {
+    fetch('https://localhost:7132/api/Doctor/UpdateDoctorDetails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ key: 'new value' }),
+    })
+      .then(response => response.json())
+      .then(updatedData => {
+        setupdatedData(updatedData);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   const updateDetails = async () => {
-    var profileData =   { 
-        "id": user.id,
-        "role": "",
-        "employee": {
-          "id": user.id,
-          "name": "Mithra",
-          "dateOfBirth": "2023-06-27T10:13:03.890Z",
-          "phoneNumber": user.phoneNumber,
-          "age": 21,
-          "emailId": "mithra@gmail.com",
-          "address": user.address,
-          "passportNumber": user.passportNumber,
-          "drivingLicenseNumber": user.drivingLicenseNumber,
-          "status": "Active"
-        },
-        "passwordClear": ""
-      }
-      console.log(profileData);
+    var profileData = {
+
+      "doctorId": 0,
+      "users": {
+        "userId": 0,
+        "email": "user@example.com",
+        "passwordHash": "string",
+        "passwordKey": "string",
+        "role": "string"
+      },
+      "name": "string",
+      "dateOfBirth": "2023-07-03T06:48:04.736Z",
+      "phoneNumber": "string",
+      "specialization": "string",
+      "experience": 0,
+      "status": "string"
+
+    }
+    console.log(profileData);
     try {
-      await axios.put('http://localhost:5188/api/Employee/Update Employee Details',profileData);
+      await axios.put('https://localhost:7132/api/Doctor/UpdateDoctorDetails', profileData);
       setUpdateStatus(true);
       setClassUpdate("input");
     } catch (error) {
       console.error('Error updating user details:', error);
     }
   };
+
 
   const editDetails = () => {
     setUpdateStatus(false);
@@ -69,70 +120,105 @@ function Profile() {
     setUpdateStatus(true);
     setClassUpdate("input");
   };
-  useEffect(() => {
-    const doctorId = localStorage.getItem("userId");
-    setUser(doctorId)
-    console.log(user)
 
 
-  }, []);
   useEffect(() => {
     GetAllDoctors();
   }, []);
 
-
   return (
-    <div className="profile">
-      {user ? (
-        <div>
-          <div className="profile-top">
-            <div className="profile-top-image">
-              <img src={profile} width="200" height="200" alt="Profile" />
-              <h4>Name: {user.name} </h4>
-              <h5>Doctor ID: {user.doctorId} </h5>
-              <h5>Phone Number {user.phoneNumber} </h5>
-            </div>
-            <div className="profile-top-content">
-              <h5> User Details </h5>
-              <div className="profile-table">
-                <table className="profile-top-content-field" >
-                  <tbody>
-                    <tr>
-                      <td>Phone Number</td>
-                      <td>
-                        <input
-                          className={classUpdate}
-                          type="tel"
-                          value={user.phoneNumber}
-                          onChange={(event) => { setUser({ ...user, "phoneNumber": event.target.value }) }}
-                          disabled={updateStatus}
-                        />
-                      </td>
-                    </tr>
-        
-                  </tbody>
-                </table>
+    <div>
+      <nav className="navbar">
+        <div className="navbar-logo">
+
+          <a href="/">Lifeline Hospital</a>
+        </div>
+        <ul className="navbar-menu">
+          <li className="navbar-item">
+            <Link to="/" className="link"> Logout </Link>
+          </li>
+
+        </ul>
+      </nav>
+
+
+
+
+      <div class="parent-container">
+
+        <div class="flex-container1">
+          <div id="doctor-profiles">
+            <div class="body-doctor">
+              <div class="profile-img"></div>
+              <h1>
+                <center> {user.name}</center>
+              </h1>
+              <div class="details">
+                <p>Specialization  : {user.specialization}</p>
+                <br />
+                Experience        : {user.experience} years
+                <br>
+                </br><br></br>
+                Email    : {user.users.email}
+                <br></br><br></br>
+                <img class="phoneicon" src={phoneicon} ></img> {user.phoneNumber}
               </div>
-              <div className="btn">
-                {updateStatus ?
-                  <button className="btn-edit" onClick={editDetails}> Edit Profile </button>
-                  :
-                  <div>
-                    <button className="btn-update" onClick={updateDetails}> update </button>
-                    <button className="btn-cancel" onClick={CancelDetails}> Cancel </button>
-                  </div>
-                }
-              </div>
+              {
+                user.status == "active" ? (<div> You are  approved by Admin</div>) : (<div><p><center>You are yet to be  Approved by Admin</center></p></div>)
+              }
             </div>
-          </div>
-          <div className="profile-bottom">
+
           </div>
         </div>
-      ) : (
-        <p>Loading user details...</p>
-      )}
+        <div class="flex-container2">
+
+          {
+            user.status == "active" ? (<div>
+              <div>
+                <div className='leave-table'>
+                  <center>  <b> Registered Patient Details</b></center>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th> Name</th>
+                        <th>DateOfBirht</th>
+                        <th>Gender</th>
+                        <th>BlloodType</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {patients.map((item) => (
+
+                        <tr key={item.doctorId}>
+                          <td>{item.name}</td>
+                          <td>{item.dateOfBirth}</td>
+                          <td>{item.gender}</td>
+
+                          <td>{item.bloodType}</td>
+
+
+                        </tr>
+
+                      ))}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+
+
+            </div>) : (<div><p><center>You can get the patient details when admin approves you</center></p></div>)
+          }
+        </div>
+
+
+
+      </div>
     </div>
+
   );
 }
 
-export default Profile;
+export default DoctorProfile;

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Cors;
 using LoginandRegistration.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoginandRegistration.Controllers
 {
@@ -19,9 +20,6 @@ namespace LoginandRegistration.Controllers
         {
             private readonly IManagePatients _managepatients;
             private readonly IRepo<Patient, int> _repo;
-
-
-
 
             public PatientController(IManagePatients managepatients, IRepo<Patient, int> repo)
         {
@@ -44,6 +42,7 @@ namespace LoginandRegistration.Controllers
 
 
         [HttpGet]
+      
         [ProducesResponseType(typeof(List<Patient>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ICollection<Patient>>> GetAllPatients()
@@ -60,9 +59,8 @@ namespace LoginandRegistration.Controllers
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                return BadRequest(e.Message);
             }
-            return null;
 
         }
 

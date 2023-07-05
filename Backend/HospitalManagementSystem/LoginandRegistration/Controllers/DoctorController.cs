@@ -1,8 +1,10 @@
 ﻿using LoginandRegistration.Interfaces;
 using LoginandRegistration.Models;
 using LoginandRegistration.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 
 namespace LoginandRegistration.Controllers
@@ -28,15 +30,21 @@ namespace LoginandRegistration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserDTO>> RegisterAsDoctor(DoctorDTO doctorDTO)
         {
-            var result = await _managedoctor.DoctorRegistration(doctorDTO);
-            if (result != null)
-                return Ok(result);
-            return BadRequest("Unable to register at this moment");
+            try
+            {
+                var result = await _managedoctor.DoctorRegistration(doctorDTO);
+                if (result != null)
+                    return Ok(result);
+                return BadRequest("Unable to register at this moment");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                // Handle or log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing the request.");
+            }
+
         }
-
-
-
-
 
 
         [HttpGet]
@@ -52,6 +60,10 @@ namespace LoginandRegistration.Controllers
                     return NotFound("No doctors  available");
                 }
                 return Ok(doctors);
+            }
+            catch (SqlException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception e)
             {
@@ -85,8 +97,10 @@ namespace LoginandRegistration.Controllers
             return null;
 
         }
-        [EnableCors("CORS")]
+       
         [HttpPost]
+        [EnableCors("CORS")]
+
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Doctor>>UpdateDoctorStatus(StatusDTO statusDTO)

@@ -30,11 +30,19 @@ namespace LoginandRegistration.Controllers
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             public async Task<ActionResult<UserDTO>> RegisterAsAdmin(AdminDTO adminDTO)
             {
-                var result =await  _manageadmin.AdminRegistration(adminDTO);
+            try
+            {
+                var result = await _manageadmin.AdminRegistration(adminDTO);
                 if (result != null)
                     return Ok(result);
-                return BadRequest("Unable to register at this moment");
+                else
+                    return BadRequest("Unable to register at this moment");
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
 
         

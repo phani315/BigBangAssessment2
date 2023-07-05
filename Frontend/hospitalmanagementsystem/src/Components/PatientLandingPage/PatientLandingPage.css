@@ -6,7 +6,7 @@ table {
     font-size: 14px;
     text-align: left;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden;  
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin: auto;
     margin-top: 5%;
@@ -46,6 +46,50 @@ table th {
 {
     padding: 2px 0px;
     flex: 50%;
+}
+.profilecard{
+  max-width: 546px;
+}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+  background: #f2f2f2;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+
+
+
+.rowss {
+  display: flex;
+  justify-content: right;
+
+
+}
+
+.searchbox{
+  text-align: end;
 }
 
 

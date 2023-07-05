@@ -13,6 +13,7 @@ namespace LoginandRegistration.Services
         private readonly IRepo<User, int> _userRepo;
         private readonly IRepo<Admin, int> _adminRepo;
         private readonly IRepo<Patient, int> _patientRepo;
+        private readonly IRepo<Doctor,int> _doctorRepo;
 
         private readonly IGenerateToken _tokenService;
 
@@ -42,9 +43,25 @@ namespace LoginandRegistration.Services
                 user = new UserDTO();
                 user.UserId = userData.UserId;
                 user.Role = userData.Role;
-                user.Token = _tokenService.GenerateToken(user);
+                if (user.Role != "doctor")
+                {
+                    user.Token =  _tokenService.GenerateToken(user);
+                    return user;
+                }
+                var doctor = await _doctorRepo.Get(user.UserId);
+                if (doctor != null && doctor.Status == "Not Approved")
+                {
+                    return user;
+                }
+                user.Token = (_tokenService.GenerateToken(user));
+                return user;
+
             }
-            return user;
+            return null;
+
+
+
+          
         }
 
         public async Task<UserDTO> AdminRegistration(AdminDTO user)

@@ -14,6 +14,8 @@ function AdminLandingPage() {
     const [cards, setCards] = useState([]);
     const [CountOfInactiveDoctors ,SetInactiveDoctors]=useState(0);
     const [CountOfactiveDoctors ,SetactiveDoctors]=useState(0);
+    const [CountOfdisapprovedDoctors ,SetdisapprovedDoctors]=useState(0);
+
     const [CountOfPatients ,SetPatientsCount]=useState(0);
 
 
@@ -25,7 +27,12 @@ function AdminLandingPage() {
           const inactive = data.filter(user => user.status=="Inactive").length;
           SetInactiveDoctors(inactive);
           const active = data.filter(user => user.status=="approved").length;
+
           SetactiveDoctors(active);
+          const disapproved = data.filter(user => user.status=="disapproved").length;
+          SetdisapprovedDoctors(disapproved);
+
+
 
 
         } catch (error) {
@@ -34,7 +41,7 @@ function AdminLandingPage() {
       };
       useEffect(() => {
         GetAllDoctors();
-      }, []);
+      });
 
 
       const GetAllPatients= async () => {
@@ -80,27 +87,33 @@ function AdminLandingPage() {
   <div className="card">
       <div className="card-content">
         <img class="iconimg"src={doctorimg}></img>
-        <h3 className="card-title-landingpage">Active Doctors</h3>
         <p className="card-description-count">{CountOfactiveDoctors}</p>
+        <h3 className="card-title-landingpage cardfont">Active Doctors</h3>
       </div>
     </div>
 
     <div className="card">
       <div className="card-content">
-      <img class="iconimg"src={doctorpic}></img>
-
-        <h3 className="card-title-landingpage">Inactive Doctors</h3>
+        <img class="iconimg"src={doctorpic}></img>
         <p className="card-description-count">{CountOfInactiveDoctors}</p>
+        <h3 className="card-title-landingpage cardfont">Inactive Doctors</h3>
+      </div>
+    </div>
+
+    <div className="card">
+      <div className="card-content">
+        <img class="iconimg"src={doctorimg}></img>
+        <p className="card-description-count">{CountOfdisapprovedDoctors}</p>
+        <h3 className="card-title-landingpage cardfont">Disapproved Doctors</h3>
       </div>
     </div>
 
     
     <div className="card">
-      <div className="card-content">
+      <div className="card-content registeredPatientsCard">
       <img class="iconimg"src={patientimg}></img>
-
-        <h3 className="card-title-registeredpatient">Registered Patients</h3>
         <p className="card-description-count">{CountOfPatients}</p>
+        <h3 className="card-title-registeredpatient cardfont">Registered Patients</h3>
       </div>
     </div>
   

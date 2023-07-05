@@ -64,11 +64,11 @@ namespace LoginandRegistration.Services
             return null;
         }
 
-        public async Task<ICollection<Doctor>?> GetAll()
+        public async Task<ICollection<Doctor>>GetAll()
         {
             try
             {
-                var doctor = await _context.Doctors.ToListAsync();
+                var doctor = await _context.Doctors.Include(d => d.Users).ToListAsync();
                 if (doctor.Count > 0)
                     return doctor;
             }

@@ -14,7 +14,6 @@ namespace LoginandRegistration.Controllers
     {
         private readonly IManageUser _manageUser;
         private readonly IManageDoctors _managedoctor;
-        private readonly IManagePatients _managepatients;
 
 
 
